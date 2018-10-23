@@ -10,7 +10,7 @@
 # Distributed under terms of the MIT license.
 #
 
-source borg.env
+source $(dirname "$0")/borg.env
 
 compress_type=lz4
 options="--exclude '*isponeclick*' --stats --compression $compress_type"
