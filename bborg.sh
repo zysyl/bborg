@@ -42,6 +42,9 @@ _create_backup() {
 
 _prune_backup() {
     local username=$1
+    echo "----------PRUNE $username BEG" >> $logfile
+    borg prune --keep-daily=7 --keep-weekly=4 --keep-monthly=6 $BORG_USER@$BORG_SERVER:$BORG_SERVER_HOMEDIR/$username 2>> $logfile
+    echo "----------PRUNE $username END" >> $logfile
 }
 
 _sendreport() {
@@ -68,6 +71,7 @@ for i in $USERS_LIST ; do
     _ispmgr_dumpdb "$i"
     _check_exist_repo "$i"
     _create_backup "$i"
+    _prune_backup "$i"
     _clear
 done
 
