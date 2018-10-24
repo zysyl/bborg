@@ -11,6 +11,7 @@
 #
 
 source $(dirname "$0")/borg.env
+export BORG_BASE_DIR=/var/opt/borg
 
 compress_type=lz4
 options="--exclude '*isponeclick*' --stats --compression $compress_type"
@@ -37,6 +38,10 @@ _create_backup() {
         borg create $options $BORG_USER@$BORG_SERVER:$BORG_SERVER_HOMEDIR/$username::${username}-${hostn}-{now:%Y-%m-%d} \
             $USERS_HOMEDIR/$username/data $tmpdir 2>> $logfile
     fi
+}
+
+_prune_backup() {
+    local username=$1
 }
 
 _sendreport() {
